@@ -1,0 +1,44 @@
+$total: 100;
+
+html, body, .wrap {
+	height: 100%;
+}
+
+body {
+	background: #000;
+	overflow: hidden;
+}
+
+.wrap {
+	position: relative;
+	perspective: 1000px;
+}
+
+.circle {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	height: 100px;
+	width: 100px;
+	margin-left: -50px;
+	margin-top: -50px;
+	opacity: .5;
+
+	@for $i from 1 through $total {
+		$deg: $i * 10deg;
+		
+		&:nth-child(#{$i}){
+			$hue: $i * 3;
+			transform: rotate($deg) translateY(100px) rotate(0);
+			animation: spin#{$i} 10s infinite ease-in-out alternate;
+			border-color: hsla($hue, 100%, 50%, 1);
+			box-shadow: 0 0 50px hsla($hue, 100%, 50%, 1);
+		}
+		
+		@keyframes spin#{$i} {
+			100% {
+				transform: rotate(360 + $deg)  translateY(100px) rotate($deg * 4);
+			}
+		}
+	}
+}
